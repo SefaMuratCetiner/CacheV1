@@ -54,11 +54,11 @@ flowchart LR
     end
     Host --> Modules
     Modules --> BuildingBlocks
-    Reports -. Catalog.Contracts .-> Catalog
-    Reports -. Inventory.Contracts .-> Inventory
-    Catalog == ProductChanged ==> Reports
-    Inventory == StockChanged ==> Reports
-    Pricing -- Refit --> Frankfurter[(frankfurter.dev)]
+    Reports -.->|"Catalog.Contracts"| Catalog
+    Reports -.->|"Inventory.Contracts"| Inventory
+    Catalog ==>|ProductChanged| Reports
+    Inventory ==>|StockChanged| Reports
+    Pricing -->|Refit| Frankfurter[("frankfurter.dev")]
     Modules --> PG[(Postgres<br/>schema per module)]
     BuildingBlocks --> VK[(Valkey)]
 ```
