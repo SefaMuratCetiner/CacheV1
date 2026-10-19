@@ -1,0 +1,54 @@
+# Local infrastructure only. Run the API with `dotnet run --project src/Host/CacheShowcase.Host`.
+name: cacheshowcase
+
+services:
+  postgres:
+    image: docker.io/library/postgres:18-alpine
+    environment:
+      POSTGRES_DB: cacheshowcase
+      POSTGRES_USER: cacheshowcase
+      POSTGRES_PASSWORD: cacheshowcase
+    ports:
+      - "5432:5432"
+    volumes:
+      # One script per module schema; they run once, when the volume is empty.
+      - ./db/init:/docker-entrypoint-initdb.d:ro,z
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cacheshowcase -d cacheshowcase"]
+      interval: 5s
+      retries: 10
+
+  valkey:
+    image: docker.io/valkey/valkey:9.2-alpine
+    # A pure cache: bounded memory, LRU eviction, no persistence.
+    # (Write-behind buffers live here too; without persistence they are lost if Valkey restarts. See the README.)
+    command:
+      - valkey-server
+      - --maxmemory
+      - 64mb
+      - --maxmemory-policy
+      - allkeys-lru
+      - --save
+      - ""
+      - --appendonly
+      - "no"
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  # Metrics, traces and logs at http://localhost:18888
+  dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.6
+    environment:
+      # Local learning setup only: no login on the dashboard.
+      ASPIRE_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: "true"
+    ports:
+      - "18888:18888"
+      - "4317:18889"
+
+volumes:
+  postgres-data:

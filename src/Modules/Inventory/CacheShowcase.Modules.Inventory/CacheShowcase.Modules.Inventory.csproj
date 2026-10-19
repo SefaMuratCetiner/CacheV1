@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\CacheShowcase.BuildingBlocks.Caching\CacheShowcase.BuildingBlocks.Caching.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\CacheShowcase.BuildingBlocks.Http\CacheShowcase.BuildingBlocks.Http.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\CacheShowcase.BuildingBlocks.Persistence\CacheShowcase.BuildingBlocks.Persistence.csproj" />
+    <ProjectReference Include="..\CacheShowcase.Modules.Inventory.Contracts\CacheShowcase.Modules.Inventory.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints" />
+    <PackageReference Include="Dapper" />
+  </ItemGroup>
+
+</Project>

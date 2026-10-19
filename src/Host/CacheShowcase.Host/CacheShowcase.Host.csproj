@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- Composition root: the only project that references every module. -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\CacheShowcase.BuildingBlocks.Caching\CacheShowcase.BuildingBlocks.Caching.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\CacheShowcase.BuildingBlocks.Http\CacheShowcase.BuildingBlocks.Http.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\CacheShowcase.BuildingBlocks.Persistence\CacheShowcase.BuildingBlocks.Persistence.csproj" />
+    <ProjectReference Include="..\..\Modules\Catalog\CacheShowcase.Modules.Catalog\CacheShowcase.Modules.Catalog.csproj" />
+    <ProjectReference Include="..\..\Modules\Customers\CacheShowcase.Modules.Customers\CacheShowcase.Modules.Customers.csproj" />
+    <ProjectReference Include="..\..\Modules\Pricing\CacheShowcase.Modules.Pricing\CacheShowcase.Modules.Pricing.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventory\CacheShowcase.Modules.Inventory\CacheShowcase.Modules.Inventory.csproj" />
+    <ProjectReference Include="..\..\Modules\Carts\CacheShowcase.Modules.Carts\CacheShowcase.Modules.Carts.csproj" />
+    <ProjectReference Include="..\..\Modules\Analytics\CacheShowcase.Modules.Analytics\CacheShowcase.Modules.Analytics.csproj" />
+    <ProjectReference Include="..\..\Modules\Reports\CacheShowcase.Modules.Reports\CacheShowcase.Modules.Reports.csproj" />
+    <ProjectReference Include="..\..\Modules\ReferenceData\CacheShowcase.Modules.ReferenceData\CacheShowcase.Modules.ReferenceData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints" />
+    <PackageReference Include="Npgsql.OpenTelemetry" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+  </ItemGroup>
+
+</Project>

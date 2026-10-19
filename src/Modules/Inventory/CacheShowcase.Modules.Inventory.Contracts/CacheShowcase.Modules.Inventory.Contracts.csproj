@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- The Inventory module's public surface. Other modules may reference this project, never the module itself. -->
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints.Messaging.Core" />
+  </ItemGroup>
+
+</Project>

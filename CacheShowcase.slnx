@@ -1,0 +1,38 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/CacheShowcase.BuildingBlocks.Caching/CacheShowcase.BuildingBlocks.Caching.csproj" />
+    <Project Path="src/BuildingBlocks/CacheShowcase.BuildingBlocks.Http/CacheShowcase.BuildingBlocks.Http.csproj" />
+    <Project Path="src/BuildingBlocks/CacheShowcase.BuildingBlocks.Persistence/CacheShowcase.BuildingBlocks.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/src/Host/">
+    <Project Path="src/Host/CacheShowcase.Host/CacheShowcase.Host.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Analytics/">
+    <Project Path="src/Modules/Analytics/CacheShowcase.Modules.Analytics/CacheShowcase.Modules.Analytics.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Carts/">
+    <Project Path="src/Modules/Carts/CacheShowcase.Modules.Carts/CacheShowcase.Modules.Carts.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Catalog/">
+    <Project Path="src/Modules/Catalog/CacheShowcase.Modules.Catalog.Contracts/CacheShowcase.Modules.Catalog.Contracts.csproj" />
+    <Project Path="src/Modules/Catalog/CacheShowcase.Modules.Catalog/CacheShowcase.Modules.Catalog.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Customers/">
+    <Project Path="src/Modules/Customers/CacheShowcase.Modules.Customers/CacheShowcase.Modules.Customers.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Inventory/">
+    <Project Path="src/Modules/Inventory/CacheShowcase.Modules.Inventory.Contracts/CacheShowcase.Modules.Inventory.Contracts.csproj" />
+    <Project Path="src/Modules/Inventory/CacheShowcase.Modules.Inventory/CacheShowcase.Modules.Inventory.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Pricing/">
+    <Project Path="src/Modules/Pricing/CacheShowcase.Modules.Pricing/CacheShowcase.Modules.Pricing.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/ReferenceData/">
+    <Project Path="src/Modules/ReferenceData/CacheShowcase.Modules.ReferenceData/CacheShowcase.Modules.ReferenceData.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Reports/">
+    <Project Path="src/Modules/Reports/CacheShowcase.Modules.Reports/CacheShowcase.Modules.Reports.csproj" />
+  </Folder>
+</Solution>

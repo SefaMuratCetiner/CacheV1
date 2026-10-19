@@ -1,0 +1,89 @@
+# One request (or a few) per pattern. Watch the X-Cache, Cache-Control, ETag and Age response headers.
+# Full walkthrough: docs/pattern-map.md
+@api = http://localhost:5080/api
+
+### Catalog: cache-aside (MISS, then HIT)
+GET {{api}}/catalog/products/5
+
+### Catalog: conditional GET (304 Not Modified)
+GET {{api}}/catalog/products/5
+If-None-Match: "v1"
+
+### Catalog: negative caching (404 MISS, then 404 HIT)
+GET {{api}}/catalog/products/9999
+
+### Catalog: id-list caching + generations + batched MGET (PARTIAL when only some products are cached)
+GET {{api}}/catalog/products?category=books&page=1&pageSize=5
+
+### Catalog: write-around + key delete + generation bump, then ProductChanged
+POST {{api}}/catalog/products
+Content-Type: application/json
+
+{ "name": "Test Kettle", "category": "food", "price": 12.5 }
+
+### Catalog: write-around + delayed double delete; If-Match gives 412 when stale
+PUT {{api}}/catalog/products/5
+Content-Type: application/json
+If-Match: "v1"
+
+{ "name": "Renamed Lamp", "category": "books", "price": 10 }
+
+### Catalog: immutable content-addressed image (copy imageUrl from a product)
+GET {{api}}/catalog/images/REPLACE_WITH_HASH
+
+### Customers: read-through
+GET {{api}}/customers/3
+
+### Customers: write-through with versioned compare-and-set (next GET is a fresh HIT)
+PUT {{api}}/customers/3
+Content-Type: application/json
+
+{ "name": "Ada Lovelace", "email": "ada@example.com" }
+
+### Pricing: refresh-ahead + upstream-capped TTL (after 60s a HIT also triggers a background refresh)
+GET {{api}}/pricing/exchange-rates/usd
+
+### Pricing: negative caching of an unknown currency
+GET {{api}}/pricing/exchange-rates/xyz
+
+### Pricing: soft/hard TTL (STALE after 30s while a background refresh runs)
+GET {{api}}/pricing/currencies
+
+### Pricing: memoization (see the memoization lookups in the metrics)
+GET {{api}}/pricing/tax?country=DE&category=books&amount=100
+
+### Inventory: leases
+GET {{api}}/inventory/10
+
+### Inventory: write, then revoke entry + lease
+POST {{api}}/inventory/10/adjustments
+Content-Type: application/json
+
+{ "delta": -1 }
+
+### Carts: sliding expiration (each read resets the idle timer)
+GET {{api}}/carts/11111111-1111-1111-1111-111111111111
+
+### Carts: write-around
+POST {{api}}/carts/11111111-1111-1111-1111-111111111111/items
+Content-Type: application/json
+
+{ "productId": 7, "quantity": 1 }
+
+### Analytics: write-behind (202; reaches the database within 10s)
+POST {{api}}/analytics/products/3/views
+
+### Analytics: TTL-only + probabilistic early expiration
+GET {{api}}/analytics/trending?limit=5
+
+### Reports: output cache (replays carry an Age header), evicted by ProductChanged / StockChanged
+GET {{api}}/reports/catalog-overview
+
+### ReferenceData: two-level cache, warmed at startup
+GET {{api}}/reference-data/countries
+
+### ReferenceData: L2 delete + pub/sub broadcast of the L1 eviction
+PUT {{api}}/reference-data/countries/TR
+Content-Type: application/json
+
+{ "name": "Türkiye", "currency": "TRY" }
